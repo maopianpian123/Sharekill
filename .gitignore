@@ -4,3 +4,21 @@
 *.jar
 *.war
 *.ear
+
+
+# eclipse file won't upload.
+/.project
+/.classpath
+/.settings
+
+# LOG files won't upload.
+*.log
+
+
+# Maven build files won't upload.
+target/
+
+
+# temp files won't upload.
+~*
+.*
