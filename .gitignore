@@ -1,3 +1,4 @@
+# Compiled files
 *.class
 
 # Package Files #
@@ -22,3 +23,4 @@ target/
 # temp files won't upload.
 ~*
 .*
+*~
