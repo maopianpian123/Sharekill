@@ -91,7 +91,7 @@ SET GLOBAL event_scheduler = ON;
 CREATE TABLE User(
     
     #手机号码
-    cellphone bigint,
+    username bigint,
     #性别
     sex boolean,
     #真名
@@ -112,7 +112,7 @@ CREATE TABLE User(
     #需要使用触发器更新个人评分
     rank decimal(3,2) default 3.0,
     
-    CONSTRAINT pk_user PRIMARY KEY (cellphone)
+    CONSTRAINT pk_user PRIMARY KEY (username)
 );
 
 #######################################################
@@ -196,7 +196,7 @@ CREATE TABLE Skill(
     CONSTRAINT pk_skill PRIMARY KEY (skillId),
     #技能发布者必须是一个已经存在的用户
     CONSTRAINT fk_skill_user_publisher FOREIGN KEY (publisher) 
-        REFERENCES User(cellphone) on delete cascade on update cascade
+        REFERENCES User(username) on delete cascade on update cascade
 );
 
 
@@ -221,7 +221,7 @@ CREATE TABLE Comment(
     CONSTRAINT pk_comment PRIMARY KEY (commentId),
     #评论者必须是一个已经存在的用户
     CONSTRAINT fk_comment_user FOREIGN KEY (reviewer) 
-        REFERENCES User(cellphone) on delete set null on update cascade,
+        REFERENCES User(username) on delete set null on update cascade,
     #技能必须存在
     CONSTRAINT fk_comment_skill FOREIGN KEY (skillId) 
         REFERENCES Skill(skillId) on delete set null on update cascade
@@ -275,10 +275,10 @@ CREATE TABLE SuccessRecord(
     
     #技能提供者必须是一名已经存在的用户
     CONSTRAINT fk_successrecord_user_provider FOREIGN KEY (provider) 
-        REFERENCES User (cellphone) on delete set null on update cascade,
+        REFERENCES User (username) on delete set null on update cascade,
     #消费者必须是一名已经存在的用户
     CONSTRAINT fk_successrecord_user_consumer FOREIGN KEY (consumer) 
-        REFERENCES User (cellphone) on delete set null on update cascade,
+        REFERENCES User (username) on delete set null on update cascade,
     #成交的技能必须存在
     CONSTRAINT fk_successrecord_skill FOREIGN KEY (skillId) 
         REFERENCES Skill (skillId) on delete set null on update cascade
@@ -301,7 +301,7 @@ CREATE TABLE SkillCollection(
         REFERENCES Skill (skillId) on delete cascade on update cascade,
     
     CONSTRAINT fk_skillcollection_user FOREIGN KEY (collector) 
-        REFERENCES User (cellphone) on delete cascade on update cascade
+        REFERENCES User (username) on delete cascade on update cascade
 
 );
 
@@ -372,10 +372,10 @@ CREATE TABLE SkillOrder(
     CONSTRAINT pk_order PRIMARY KEY (orderId),
     
     CONSTRAINT fk_order_user_creator FOREIGN KEY (creator) 
-        REFERENCES User (cellphone) on delete cascade on update cascade,
+        REFERENCES User (username) on delete cascade on update cascade,
     
     CONSTRAINT fk_order_user_provider FOREIGN KEY (provider) 
-        REFERENCES User (cellphone) on delete cascade on update cascade,
+        REFERENCES User (username) on delete cascade on update cascade,
     
     CONSTRAINT fk_order_skill FOREIGN KEY (skillId)
         REFERENCES Skill (skillId) on delete cascade on update cascade
@@ -427,5 +427,5 @@ CREATE TABLE OrderWithCreateTime(
 #测试专用表
 CREATE Table Temp(
      log varchar(100),
-     cellphone bigint
+     username bigint
 );

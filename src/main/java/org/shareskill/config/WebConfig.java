@@ -20,6 +20,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 /**
  * @author hit_lacus@126.com
  */
+
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("org.shareskill")

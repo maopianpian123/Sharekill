@@ -4,14 +4,10 @@
  */
 package org.shareskill.dao.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
-
-
 import org.apache.log4j.Logger;
 import org.shareskill.dao.TagDao;
-import org.shareskill.pojo.Manager;
+import org.shareskill.dao.mapper.TagRowMapper;
 import org.shareskill.pojo.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -45,13 +41,4 @@ public class TagDaoImpl implements TagDao {
 		return tags;
 	}
 
-}
-class TagRowMapper implements RowMapper<Tag> {
-	public Tag mapRow(ResultSet rs, int rowNum) throws SQLException {
-		return new Tag(
-			new Manager(rs.getString("creator")),
-			rs.getString("tagName"),
-			rs.getTimestamp("createTime").getTime()
-		);
-	}
 }

@@ -8,17 +8,21 @@
 
 
 # eclipse file won't upload.
-/.project
-/.classpath
-/.settings
+# /.project
+# /.classpath
+# /.settings
 
 # LOG files won't upload.
 *.log
 
+# 原型图等
+/doc/design/raw
 
 # Maven build files won't upload.
 target/
 
+# log files won't be upload
+log/
 
 # temp files won't upload.
 ~*
