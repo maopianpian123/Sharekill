@@ -26,5 +26,5 @@ log/
 
 # temp files won't upload.
 ~*
-.*
+#.*
 *~
