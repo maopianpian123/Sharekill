@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao{
 	
 	@Autowired
 	private JdbcOperations jdbcOperations;
-
+    
     @Override
     public User getUserById(long id) {
 	    return jdbcOperations.queryForObject("select * from User where username = ?", mapper, id);

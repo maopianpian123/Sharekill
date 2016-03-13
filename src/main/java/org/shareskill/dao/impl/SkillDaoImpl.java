@@ -4,7 +4,9 @@
  */
 package org.shareskill.dao.impl;
 
+
 import java.util.List;
+
 
 import org.apache.log4j.Logger;
 import org.shareskill.dao.SkillDao;
@@ -54,7 +56,7 @@ public class SkillDaoImpl implements SkillDao {
     	//and ( skillName like "%一日游%" or skillDesc like "%一日游%") limit 1,2;
     	
     	//select * from Skill where skillName like "%一日游%" or skillDesc like "%一日游%" limit 1,2;
-    	if(tag == null){
+    	if(tag != null){
     		StringBuffer sb = new StringBuffer("SELECT * FROM Skill,SkillTag,Tag where ");
     		sb.append("Skill.skillId = SkillTag.skillId ");
     		sb.append("and Tag.tagName=SkillTag.tag ");
@@ -131,6 +133,43 @@ public class SkillDaoImpl implements SkillDao {
 		this.skillRowMapper = skillRowMapper;
 	}
 	
+	 @Override 
+	 public void insert(Skill skill,long username)throws Exception{
+		 String sql="insert into skill(skillName,skillDesc,publisher,createTime,price,contact) values(?,?,?,?,?,?)";  
+		    long creattime=0;
+	        Object obj[]={skill.getName(),skill.getDescription(),username,creattime,skill.getPrice(),skill.getContact()};  
+	        try{
+		    this.jdbcOperations.update(sql,obj);
+			log.info("skill " + skill.getSkillId() + " insert success.");
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+			}
 	
+}
 
+	  @Override 
+	 public void delete(int id)throws Exception {  
+		  String sql="delete from skillId where id="+id;  
+		  try{
+	        this.jdbcOperations.update(sql);  
+	        log.info("skill " + id+ " delete success.");
+		  } catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
+	 }
+	  
+	  @Override 
+	  public void update(Skill skill)throws Exception  {  
+	        // TODO Auto-generated method stub  
+	        String sql="update skill set skillName=?,skillDesc=?,price=?,contact=?where skillId=?";  
+	        Object obj[]={skill.getName(),skill.getDescription(),skill.getPrice(),skill.getContact(),skill.getSkillId()}; 
+			  try{
+			        this.jdbcOperations.update(sql,obj); 
+			        log.info("skill " + skill.getSkillId() + " update success.");
+				  } catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+				}
+			 }
 }

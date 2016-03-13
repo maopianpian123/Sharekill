@@ -5,6 +5,7 @@
 package org.shareskill.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.shareskill.pojo.*;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,8 +15,14 @@ import org.springframework.cache.annotation.Cacheable;
 public interface SkillDao {
 	
 	@Cacheable("skillList")
+
 	List<Skill> getAllSkill();
 	
 	List<Skill> searchSkill(int start,int count,String tag,String keyword);
-
+	
+	 public void insert(Skill skill,long username)throws Exception;
+	 
+	 public void delete(int id)throws Exception ;
+	 
+	 public void update(Skill skill)throws Exception;
 }
