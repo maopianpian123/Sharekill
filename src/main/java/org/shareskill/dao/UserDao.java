@@ -15,7 +15,7 @@ import org.springframework.cache.annotation.Cacheable;
 public interface UserDao {
 	@Cacheable("userList")
 	
-	User getUserById(long id);
+	public User getUserById(long id);
 	
 	public List<User> getAllUser();
 	

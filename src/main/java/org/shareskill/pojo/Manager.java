@@ -9,10 +9,17 @@ package org.shareskill.pojo;
  */
 public class Manager {
 	
-	public Manager(String idno){
-		this.identifyNo = idno;
+	public Manager(String realName,String pwdDigest,String identifyNo,long createTime,int authority){
+		this.realName=realName;
+		this.pwdDigest=pwdDigest;
+		this.identifyNo = identifyNo;
+		this.createTime=createTime;
+		this.authority=authority;
 	}
 	
+	public Manager(String identifyNo){
+		this.identifyNo = identifyNo;
+	}
 	private long cellphone;
 	
 	private String realName;
@@ -37,6 +44,16 @@ public class Manager {
 		this.cellphone = cellphone;
 	}
 
+	public String getPwdDigest() {
+		return pwdDigest;
+	}
+
+	public void setPwdDigest(String pwdDigest) {
+		this.pwdDigest = pwdDigest;
+	}
+
+	private String pwdDigest;
+	
 	/**
 	 * @return the realName
 	 */

@@ -4,6 +4,9 @@
  */
 package org.shareskill.config;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -39,4 +42,10 @@ public class DispatcherServletInitializer extends
 		return new String[]{"/"};
 	}
 
+	
+	@Override
+	protected void customizeRegistration(Dynamic registeration){
+		registeration.setMultipartConfig(new MultipartConfigElement("F:/",
+				2097152,4194304,0));
+	}
 }
