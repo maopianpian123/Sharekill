@@ -4,7 +4,9 @@
  */
 package org.shareskill.dao.impl;
 
+import java.util.Date;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.shareskill.dao.TagDao;
 import org.shareskill.dao.mapper.TagRowMapper;
@@ -41,4 +43,30 @@ public class TagDaoImpl implements TagDao {
 		return tags;
 	}
 
+	//插入新的标签
+	@Override
+	public void insert(String name,String creator)throws Exception{
+		 String sql="insert into tag(tagName,creator,createTime) values(?,?,?)";  
+		 Date creattime = new Date(System.currentTimeMillis());
+		 Object obj[]={name,creator,creattime};  
+	        try{
+		    this.jdbcOperations.update(sql,obj);
+			log.info("tag " + name + " insert success.");
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+			}
+	
+	}
+	
+	@Override
+	public void delete(String name)throws Exception{
+		 String sql="delete from tag where tagName="+name;  
+		  try{
+	        this.jdbcOperations.update(sql);  
+	        log.info("tag " + name+ " delete success.");
+		  } catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
+	}
 }

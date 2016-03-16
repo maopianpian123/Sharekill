@@ -8,17 +8,10 @@ import org.shareskill.pojo.User;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
-import org.apache.log4j.Logger;
-import org.shareskill.authentication.RsaUtil;
-import org.shareskill.authentication.TokenUtil;
-import org.shareskill.authentication.Validate;
 import org.shareskill.dao.SkillDao;
 import org.shareskill.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +33,7 @@ public class SkillController {
 			@RequestParam("desc") String desc, 
 			@RequestParam("skillname") String skillname )throws Exception{
 			Map<String,Object> result = new HashMap<>();
-			String contact=contactWay+","+contact1;
+			String contact=contactWay+":"+contact1;
 			if(username==0)
 			{
 				result.put("status", "fail");
@@ -68,7 +61,7 @@ public class SkillController {
 }
 	
 
-	@RequestMapping(value="/update",method=POST,produces="application/json")
+	@RequestMapping(value="/skillupdate",method=POST,produces="application/json")
 	public Map<String,Object> update(
 			@RequestParam("skillId") int skillId,
 			@RequestParam("username") long username,
@@ -78,7 +71,7 @@ public class SkillController {
 			@RequestParam("desc") String desc, 
 			@RequestParam("skillname") String skillname 
 			) throws Exception{
-		String contact=contactWay+","+contact1;
+		String contact=contactWay+":"+contact1;
 		Map<String,Object> result = new HashMap<>();
 		 if(price<2||price>10)
 			{
@@ -100,7 +93,7 @@ public class SkillController {
 			return result;
 	}
 
-	@RequestMapping(value="/delete",method=POST,produces="application/json")
+	@RequestMapping(value="/skilldelete",method=POST,produces="application/json")
 	public Map<String,Object> delete(
 			@RequestParam("skillId") int skillId) throws Exception{
 			Map<String,Object> result = new HashMap<>();

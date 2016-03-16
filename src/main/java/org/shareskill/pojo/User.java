@@ -7,8 +7,6 @@ package org.shareskill.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.shareskill.enums.Job;
-import org.shareskill.enums.Location;
 import org.shareskill.pojo.record.*;
 
 
@@ -46,6 +44,19 @@ public class User {
 	    this.selfDescription = selfDescription;
 	    this.rank = rank;
     }
+    
+    public User(boolean sex, long cellphone, String realName, String nickName,
+           String job, String location,String selfDescription) {
+	    super();
+	    this.sex = sex;
+	    this.cellphone = cellphone;
+	    this.realName = realName;
+	    this.nickName = nickName;	  
+	    this.job = job;
+	    this.location = location;  
+	    this.selfDescription = selfDescription;
+    }
+
 
 	private boolean sex;
 	

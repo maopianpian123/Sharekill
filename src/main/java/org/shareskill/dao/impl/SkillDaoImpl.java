@@ -5,15 +5,15 @@
 package org.shareskill.dao.impl;
 
 
+import java.util.Date;
 import java.util.List;
-
 
 import org.apache.log4j.Logger;
 import org.shareskill.dao.SkillDao;
-import org.shareskill.dao.mapper.SkillRowMapper;
+
 import org.shareskill.pojo.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
+
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -31,9 +31,18 @@ public class SkillDaoImpl implements SkillDao {
 	
 	@Autowired
 	RowMapper<Skill> skillRowMapper; 
+	
+	
+	@Override
+	//查看指定Id技能
+	public Skill getSkillById(int id){
+		 return jdbcOperations.queryForObject("select * from skill where skillId = ?", skillRowMapper, id);
+	}
 
 	
 	@Override
+	
+    //查询所有的技能
 	
 	public List<Skill> getAllSkill() {
 		
@@ -43,9 +52,20 @@ public class SkillDaoImpl implements SkillDao {
 		
 		return skills;
 	}
-
+	
+    @Override
+	
+    //查询指定用户的所有的技能
+	 public List<Skill> getAllSkillbyId(long id){
+    	List<Skill> skills = jdbcOperations.query("select * from Skill where publisher=?",new Object[]{id}, skillRowMapper);
+		log.info("Not using cache.Found " + skills.size() + " skills at all.");
+		
+		
+		return skills;
+    }
 
 	/* 
+	 * 查询和关键词相似的技能（还有标签）
 	 */
     @Override
     public List<Skill> searchSkill(int start, int count, String tag,String keyword) {
@@ -133,10 +153,11 @@ public class SkillDaoImpl implements SkillDao {
 		this.skillRowMapper = skillRowMapper;
 	}
 	
+//	插入新的技能
 	 @Override 
 	 public void insert(Skill skill,long username)throws Exception{
 		 String sql="insert into skill(skillName,skillDesc,publisher,createTime,price,contact) values(?,?,?,?,?,?)";  
-		    long creattime=0;
+		 Date creattime = new Date(System.currentTimeMillis());
 	        Object obj[]={skill.getName(),skill.getDescription(),username,creattime,skill.getPrice(),skill.getContact()};  
 	        try{
 		    this.jdbcOperations.update(sql,obj);
@@ -146,10 +167,10 @@ public class SkillDaoImpl implements SkillDao {
 			}
 	
 }
-
+//删除技能
 	  @Override 
 	 public void delete(int id)throws Exception {  
-		  String sql="delete from skillId where id="+id;  
+		  String sql="delete from skill where skillId="+id;  
 		  try{
 	        this.jdbcOperations.update(sql);  
 	        log.info("skill " + id+ " delete success.");
@@ -158,7 +179,7 @@ public class SkillDaoImpl implements SkillDao {
 				e.printStackTrace();
 		}
 	 }
-	  
+//	  更新技能信息
 	  @Override 
 	  public void update(Skill skill)throws Exception  {  
 	        // TODO Auto-generated method stub  

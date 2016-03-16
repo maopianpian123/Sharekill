@@ -19,6 +19,15 @@ public class Comment {
 	
 	private int score;
 
+	
+	 public Comment(User user,String content,Skill skill,long commentTime,int score){
+		 this.user=user;
+		 this.content=content;
+		 this.skill=skill;
+		 this.commentTime=commentTime;
+		 this.score=score;
+	 }
+	 
 	/**
 	 * @return the user
 	 */
